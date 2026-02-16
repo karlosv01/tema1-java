@@ -1,12 +1,17 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-     stage('Ejercicio 1') {
+    stages {
+       stage('Test') {
+            agent {
+                docker {
+                image 'python:3.6-slim'
+                }
+            }
             steps {
-                 echo "Job: ${env.JOB_NAME}"
-                echo "Branch: ${env.BRANCH_NAME}"
+                sh 'pip install pytest'// Instalamos pytest dentro del contenedor Docker
+                sh 'pytest'
             }
         }
-  }
+    }
 }
